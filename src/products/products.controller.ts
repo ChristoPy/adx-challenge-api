@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Validation
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { NoAuth } from 'src/auth/constants';
 
 @UsePipes(new ValidationPipe())
 @Controller('products')
@@ -13,11 +14,13 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
 
+  @NoAuth()
   @Get()
   findAll() {
     return this.productsService.findAll();
   }
 
+  @NoAuth()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productsService.findOne(id);
