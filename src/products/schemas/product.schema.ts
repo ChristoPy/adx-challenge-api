@@ -21,4 +21,4 @@ export class Product {
   quantity: number;
 }
 
-export const CatSchema = SchemaFactory.createForClass(Product);
+export const ProductSchema = SchemaFactory.createForClass(Product);
