@@ -1,73 +1,138 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Mini E-Commerce System API
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is a small e-commerce system with an administration panel to manage products and monitor active carts. The API is developed using the NestJS framework and uses a MongoDB database to store the products. 
 
 ## Installation
 
-```bash
-$ npm install
+1. Clone the repository
+2. Install dependencies using `npm install`
+3. Create a `.env` file based on the `.env.example` file and fill in the required environment variables.
+4. Start the server using `npm run start:dev`
+
+## API Endpoints
+
+The following endpoints are available:
+
+### Products
+
+#### Get all products
+
+`GET /products`
+
+Response:
+
+```json
+[
+  {
+    "_id": "60aa2888755d5c5f3ab79ee3",
+    "name": "Product 1",
+    "price": 1099,
+    "quantity": 100,
+    "image": "https://example.com/product1.jpg"
+  },
+  {
+    "_id": "60aa2888755d5c5f3ab79ee4",
+    "name": "Product 2",
+    "price": 2099,
+    "quantity": 50
+  }
+]
 ```
 
-## Running the app
+#### Get a product by ID
 
-```bash
-# development
-$ npm run start
+`GET /products/:id`
 
-# watch mode
-$ npm run start:dev
+Response:
 
-# production mode
-$ npm run start:prod
+```json
+{
+  "_id": "60aa2888755d5c5f3ab79ee3",
+  "name": "Product 1",
+  "price": 1099,
+  "quantity": 100,
+  "image": "https://example.com/product1.jpg"
+}
 ```
 
-## Test
+#### Create a product (Admin only)
 
-```bash
-# unit tests
-$ npm run test
+`POST /products`
 
-# e2e tests
-$ npm run test:e2e
+Request Body:
 
-# test coverage
-$ npm run test:cov
+```json
+{
+  "name": "Product 3",
+  "price": 3099,
+  "quantity": 75,
+  "image": "base64 encoded image"
+}
 ```
 
-## Support
+Response:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```json
+{
+  "_id": "60aa2888755d5c5f3ab79ee5",
+  "name": "Product 3",
+  "price": 3099,
+  "quantity": 75,
+  "image": "https://example.com/product3.jpg"
+}
+```
 
-## Stay in touch
+#### Update a product (Admin only)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+`PATCH /products/:id`
 
-## License
+Request Body:
 
-Nest is [MIT licensed](LICENSE).
+```json
+{
+  "name": "Product 3 updated",
+  "price": 3599,
+  "quantity": 100,
+  "image": "base64 encoded image"
+}
+```
+
+Response:
+
+```json
+{
+  "_id": "60aa2888755d5c5f3ab79ee5",
+  "name": "Product 3 updated",
+  "price": 3599,
+  "quantity": 100,
+  "image": "https://example.com/product3.jpg"
+}
+```
+
+#### Delete a product (Admin only)
+
+`DELETE /products/:id`
+
+Response:
+
+```json
+{
+  "_id": "60aa2888755d5c5f3ab79ee5",
+  "name": "Product 3 updated",
+  "price": 35.99,
+  "quantity": 100,
+  "image": "https://example.com/product3.jpg"
+}
+```
+
+### Admin
+`POST /auth/login`
+
+Response:
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYWEyODg4NzU1ZDVjNWYzYWI3OWVlMyIsImlhdCI6MTYyNjQ2NjQ2OSwiZXhwIjoxNjI2"
+}
+```
