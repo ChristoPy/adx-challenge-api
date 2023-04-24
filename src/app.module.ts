@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,6 +16,10 @@ import { jwtConstants } from './auth/constants';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 86400 // 24 hours,
+    }),
     MongooseModule.forRoot(process.env.MONGO_URI),
     JwtModule.register({
       global: true,
@@ -25,6 +31,12 @@ import { jwtConstants } from './auth/constants';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+    AppService
+  ],
 })
 export class AppModule {}
