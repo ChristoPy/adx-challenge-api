@@ -30,6 +30,12 @@ export class ProductsService {
   }
 
   async update(id: string, product: UpdateProductDto): Promise<Product> {
+    const { image } = product;
+    if (image) {
+      const url = await this.uploaderService.uploadImage(image);
+      product.image = url;
+    }
+
     return this.productModel.findByIdAndUpdate(id, product, { new: true }).exec();
   }
 
