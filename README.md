@@ -121,7 +121,7 @@ Response:
 {
   "_id": "60aa2888755d5c5f3ab79ee5",
   "name": "Product 3 updated",
-  "price": 35.99,
+  "price": 3599,
   "quantity": 100,
   "image": "https://example.com/product3.jpg"
 }
