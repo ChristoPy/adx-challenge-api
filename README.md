@@ -26,6 +26,12 @@ Response:
 }
 ```
 
+#### Veirfy Token
+`POST /auth/verify`
+`Authorization: Bearer <access_token>`
+
+Response: `200 OK` or `401 Unauthorized`
+
 ### Products
 
 #### Get all products
