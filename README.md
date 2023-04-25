@@ -4,6 +4,19 @@
 
 This project is a small e-commerce system with an administration panel to manage products and monitor active carts. The API is developed using the NestJS framework and uses a MongoDB database to store the products. 
 
+For the required for this project, it uses the following technologies:
+* NestJS
+* Mongoose
+* MongoDB
+* TypeScript
+* JWT
+* Cloudinary API
+
+All products are cached in memory to reduce the number of database queries. The cache is updated when a product is created, updated or deleted.  
+Redis is not used in this case, but it can be easily added to the project by using the `@nestjs/redis` package and changing the `CacheModule` import in `app.module.ts` to `RedisModule`.
+
+Only the `name`, `price` and `quantity` fields are required when creating or updating a product. The `image` field is optional and should be a base64 encoded image. If the `image` field is provided, the API will use the Cloudinary API to upload the image. Else each front-end application will show a placeholder image.
+
 ## Installation
 
 1. Clone the repository
