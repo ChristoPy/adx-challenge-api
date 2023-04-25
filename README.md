@@ -15,6 +15,17 @@ This project is a small e-commerce system with an administration panel to manage
 
 The following endpoints are available:
 
+### Admin
+#### Login
+`POST /auth/login`
+
+Response:
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYWEyODg4NzU1ZDVjNWYzYWI3OWVlMyIsImlhdCI6MTYyNjQ2NjQ2OSwiZXhwIjoxNjI2"
+}
+```
+
 ### Products
 
 #### Get all products
@@ -60,6 +71,7 @@ Response:
 #### Create a product (Admin only)
 
 `POST /products`
+`Authorization: Bearer <access_token>`
 
 Request Body:
 
@@ -87,6 +99,7 @@ Response:
 #### Update a product (Admin only)
 
 `PATCH /products/:id`
+`Authorization: Bearer <access_token>`
 
 Request Body:
 
@@ -114,6 +127,7 @@ Response:
 #### Delete a product (Admin only)
 
 `DELETE /products/:id`
+`Authorization: Bearer <access_token>`
 
 Response:
 
@@ -124,15 +138,5 @@ Response:
   "price": 3599,
   "quantity": 100,
   "image": "https://example.com/product3.jpg"
-}
-```
-
-### Admin
-`POST /auth/login`
-
-Response:
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYWEyODg4NzU1ZDVjNWYzYWI3OWVlMyIsImlhdCI6MTYyNjQ2NjQ2OSwiZXhwIjoxNjI2"
 }
 ```
